@@ -1,23 +1,20 @@
 const mongoose = require("mongoose");
-const MOGODB_URI = "mongodb+srv://huevang:hueavangxp@cluster0.mpjkgcf.mongodb.net/?retryWrites=true&w=majority";
-
-const ConnectDB = async () => {
-    try {
-        await mongoose.connect(
-            MOGODB_URI,
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            },
-            (error) => {
-                if (error) return console.log("Can't connect to database");
-                console.log("Connected to database");
-            }
-        )
+require("dotenv").config();
+const URL = process.env.URL;
+const ConnectDB = () => {
+  try {
+    mongoose.connect(URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }).then(() => {
+        console.log('Success')
+    }).catch((error) => {
+        console.log(`can not conect database ${error}`)
+    })
+    
   } catch (error) {
     console.log(error);
   }
 };
 
 module.exports = ConnectDB;
- 
